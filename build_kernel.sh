@@ -158,27 +158,17 @@ echo "Done"
 echo
 echo "${bldcya}***** Make archives *****${txtrst}"
 
-cp -R ./arianoxx-dev ${KERNELDIR}/output/$TARGET/
-cp ./$TARGET/boot.img ${KERNELDIR}/output/$TARGET/arianoxx-dev
-cp -R ./system ${KERNELDIR}/output/$TARGET/
+cp ./$TARGET/boot.img ${KERNELDIR}/output/$TARGET
 cp -R ./META-INF ${KERNELDIR}/output/$TARGET/
 
 cd ${KERNELDIR}/output/$TARGET
 GETVER=`grep 'S6_MM_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
 
-# Without Clearwater audio mod
-AUDIO=`grep '# CONFIG_SND_SOC_ARIZONA_CONTROL*' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
-if [ "$AUDIO" == "# CONFIG_SND_SOC_ARIZONA_CONTROL is not set" ]; then
-	AUDIO="no-audio"
-else
-	AUDIO=""
-fi
 
-zip -r Arianoxx-Kernel-$TARGET-Beta.zip .
-tar -H ustar -c ${KERNELDIR}/output/$TARGET/arianoxx-dev/boot.img > Arianoxx-Kernel-$TARGET-Beta.tar
-md5sum -t Arianoxx-Kernel-$TARGET-Beta.tar >> Arianoxx-Kernel-$TARGET-Beta.tar
-mv Arianoxx-Kernel-$TARGET-Beta.tar Arianoxx-Kernel-$TARGET-Beta.tar.md5
-
+zip -r Arianoxx-Kernel-$TARGET-7.0-Beta.zip .
+tar -H ustar -c ${KERNELDIR}/output/$TARGET/boot.img > Arianoxx-Kernel-$TARGET-7.0-Beta.tar
+md5sum -t Arianoxx-Kernel-$TARGET-7.0-Beta.tar >> Arianoxx-Kernel-$TARGET-7.0-Beta.tar
+mv Arianoxx-Kernel-$TARGET-7.0-Beta.tar Arianoxx-Kernel-$TARGET-7.0-Beta.tar.md5
 echo
 echo "Done"
 
